@@ -5,6 +5,16 @@ import SearchResult from './components/search-result.js';
 
 class PageSearchResult extends Component {
   state = {};
+
+  componentWillMount(){
+    console.log("Entramos a componentWillMount");
+  }
+  componentDidMount(){
+    console.log("Estamos en componentDidMount");
+  }
+  componentWillUnmount(){
+    console.log("llegamos a componentWillUnmount");
+  }
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -13,6 +23,7 @@ class PageSearchResult extends Component {
     });
   };
   render(){
+    console.log("Estamos renderizando");
     return (
       <React.Fragment>
         <SearchBar 
