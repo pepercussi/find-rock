@@ -2,6 +2,9 @@ import React from 'react';
 import './search-bar.css';
 import logo from '../logo.svg';
 
+import {Link} from 'react-router-dom';
+
+
 class SearchBar extends React.Component{
     state = {
         busqueda: ""
@@ -21,7 +24,9 @@ class SearchBar extends React.Component{
             <React.Fragment>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <div className="container">
-                        <a class="navbar-brand" href="#"><img className="logo-barra" src={ logo } alt="" /></a>
+                        <Link className="navbar-brand" to="/">
+                            <img className="logo-barra" src={ logo } alt="" />
+                        </Link>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <form className="form-inline" onSubmit={this.handleSubmit}>
                                 <div className="busqueda">
