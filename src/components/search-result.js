@@ -1,8 +1,10 @@
 import React, { Comment, Component} from 'react';
-import ArtistCard from './artist-card.js'
+import ArtistCard from './artist-card.js';
+import Loading from './loading';
 
 class SearchResult extends Component {
   state = {
+    loading: false,
     data: {
       similarartists:{
         artist:[]
@@ -15,9 +17,13 @@ class SearchResult extends Component {
   }
 
   fetchData = async url =>{
+    this.setState({
+      loading: true
+    });
     const response = await fetch(url);
     const data = await response.json();
     this.setState({
+      loading: false,
       data: data
     });
   };
@@ -25,6 +31,7 @@ class SearchResult extends Component {
   render(){
     return (
       <React.Fragment>
+        {this.state.loading && <Loading/>}
         <div className="container">
           <div className="row">
             {this.state.data.similarartists.artist.map((item, i) => {
