@@ -1,10 +1,12 @@
 import React, { Comment, Component} from 'react';
 import ArtistCard from './artist-card.js';
-import Loading from './loading';
+import Loading from './loading.js';
+import Error from './error.js';
 
 class SearchResult extends Component {
   state = {
     loading: false,
+    error: false,
     data: {
       similarartists:{
         artist:[]
@@ -22,16 +24,25 @@ class SearchResult extends Component {
     });
     const response = await fetch(url);
     const data = await response.json();
-    this.setState({
-      loading: false,
-      data: data
-    });
+    if(data.error){
+      this.setState({
+        loading: false,
+        error: true,
+        errorMensaje: data.message
+      });
+    }else{
+      this.setState({
+        loading: false,
+        data: data
+      });
+    }
   };
 
   render(){
     return (
       <React.Fragment>
         {this.state.loading && <Loading/>}
+        {this.state.error && <Error errorMensaje={this.state.errorMensaje} />}
         <div className="container">
           <div className="row">
             {this.state.data.similarartists.artist.map((item, i) => {
