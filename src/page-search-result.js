@@ -4,20 +4,27 @@ import SearchBar from './components/search-bar.js'
 import SearchResult from './components/search-result.js';
 
 class PageSearchResult extends Component {
-  state = {};
+  state = {
+    busqueda: ""
+  };
 
-  componentWillMount(){
-    console.log("Entramos a componentWillMount");
-  }
+  // componentWillMount(){
+  //   console.log("Entramos a componentWillMount");
+  // }
   componentDidMount(){
-    console.log("Estamos en componentDidMount");
+    // console.log("Estamos en componentDidMount");
+    let search = this.props.history.location.search.substr(1).replace("%20", " ");
+    // console.log(search);
+    this.setState({
+      busqueda: search
+    });
   }
-  componentWillUnmount(){
-    console.log("llegamos a componentWillUnmount");
-  }
+  // componentWillUnmount(){
+  //   console.log("llegamos a componentWillUnmount");
+  // }
   handleChange = e => {
     this.setState({
-      [e.target.name]: e.target.value
+      busqueda: e.target.value
       // es lo mismo que hacer:
       //busqueda: e.target.value
     });

@@ -14,8 +14,9 @@ class SearchResult extends Component {
     }
   }
 
-  componentDidMount(){
-    this.fetchData("https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=metallica&api_key=608225c9fdbbd3af8e7cb331c3a71dfc&format=json");
+  componentWillReceiveProps(e){
+    let termino = e.busqueda;
+    this.fetchData("https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist="+termino+"&api_key=608225c9fdbbd3af8e7cb331c3a71dfc&format=json");
   }
 
   fetchData = async url =>{
@@ -33,6 +34,7 @@ class SearchResult extends Component {
     }else{
       this.setState({
         loading: false,
+        error: false,
         data: data
       });
     }
