@@ -51,7 +51,7 @@ class SearchResult extends Component {
               return <ArtistCard img={item.image[2]["#text"]} titulo={item.name} key={i} />
             })}
             
-            <h1>{ this.props.busqueda }</h1>
+            {/* <h1>{ this.props.busqueda }</h1> */}
           </div>
         </div>
       </React.Fragment>

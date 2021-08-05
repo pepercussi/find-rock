@@ -20,21 +20,37 @@ class PageArtist extends Component {
         ],
         bio:{
           summary: ""
+        },
+        similar: {
+          artist: {
+            name: "",
+            url: "",
+            image: [
+              { "#text": ""},
+              { "#text": ""},
+              { "#text": ""},
+              { "#text": ""},
+              { "#text": ""}
+            ]
+          }
         }
       }
     }
   };
   handleChange = e => {
     this.setState({
-      [e.target.name]: e.target.value
+      // [e.target.name]: e.target.value
       // es lo mismo que hacer:
-      //busqueda: e.target.value
+      busqueda: e.target.value
     });
   };
 
-  componentDidMount(){
+  componentWillMount(){
+    // console.log("entro al componentWillMount");
+    let artista = this.props.history.location.search.substr(1).replace("%20", " ");
+    // console.log("artista: ", artista);
     this.fetchData(
-      "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=Cher&api_key=608225c9fdbbd3af8e7cb331c3a71dfc&format=json"
+      "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist="+artista+"&api_key=608225c9fdbbd3af8e7cb331c3a71dfc&format=json"
     );
   }
 
@@ -56,6 +72,7 @@ class PageArtist extends Component {
         error: false,
         data: data
       });
+      //console.log("data: ", data);
     }
   };
 
@@ -81,7 +98,7 @@ class PageArtist extends Component {
 
             </div>
             <div className="row centrar">
-                <SimilarArtist/>
+                <SimilarArtist data={Array.from(this.state.data.artist.similar.artist)} />
             </div>
             
         </div>
