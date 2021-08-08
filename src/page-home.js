@@ -2,6 +2,7 @@ import React from 'react';
 import "./page-home.css";
 import logo from './logo.svg';
 import ReactDom from 'react-dom';
+import Modal from './components/modal';
 
 class PageHome extends React.Component{
     handleSubmit = e =>{
@@ -14,8 +15,16 @@ class PageHome extends React.Component{
             busqueda: e.target.value
         });
     }
+    handleClick = (e) =>{
+        e.preventDefault();
+        this.setState({
+            modal:true
+        });
+
+    }
     state = {
-        busqueda : ""
+        busqueda : "",
+        modal: false
     }
     render(){
         return (
@@ -36,13 +45,15 @@ class PageHome extends React.Component{
                             </div>
                             <div className="actions">
                                 <button className="btng" type="submit">Search Similar Artist</button>
-                                <button className="btng">EscuelaDevRock</button>
+                                <button className="btng" onClick={this.handleClick}>Lariat Systems</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 {ReactDom.createPortal(
-                    <h1>Soy yo desde adentro</h1>,
+                    <Modal estado={this.state.modal}>
+                        <h4>Aguante la birra!</h4>
+                    </Modal>,
                     document.getElementById("teleport")
                 )}
             </div>
