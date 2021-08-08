@@ -45,16 +45,23 @@ class PageArtist extends Component {
     });
   };
 
-  componentWillMount(){
+  componentDidMount(){
     // console.log("entro al componentWillMount");
-    let artista = this.props.history.location.search.substr(1).replace("%20", " ");
     // console.log("artista: ", artista);
-    this.fetchData(
-      "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist="+artista+"&api_key=608225c9fdbbd3af8e7cb331c3a71dfc&format=json"
-    );
+    this.fetchData();
   }
 
-  fetchData = async url =>{
+  componentDidUpdate(prevProps){
+    if(this.props.location != prevProps.location){
+      this.fetchData();
+    }
+  }
+
+  fetchData = async () =>{
+    let artista = this.props.history.location.search.substr(1).replace("%20", " ");
+    let url = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist="+artista+"&api_key=608225c9fdbbd3af8e7cb331c3a71dfc&format=json";
+
+
     this.setState({
       loading: true
     });
